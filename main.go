@@ -3,9 +3,6 @@ package main
 import (
 	configs "github.com/jfromjefferson/gojobs-api/config"
 	"github.com/jfromjefferson/gojobs-api/router"
-	"github.com/jfromjefferson/gojobs-api/schemas"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func main() {
@@ -17,15 +14,13 @@ func main() {
 		return
 	}
 
-	db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+	// Init database
+	db, err := configs.InitDatabase()
 	if err != nil {
-		panic(err)
+		logger.ErrF("Database init error: %v", err)
 	}
 
-	err = db.AutoMigrate(schemas.Job{})
-	if err != nil {
-		panic(err)
-	}
+	print(db)
 
 	// Init routes
 	router.Init(":8000")
