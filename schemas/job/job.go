@@ -1,4 +1,4 @@
-package schemas
+package job
 
 import (
 	"errors"
@@ -13,8 +13,6 @@ var (
 	ErrCompanyIsRequired     = errors.New("company is required")
 	ErrLocationIsRequired    = errors.New("location is required")
 	ErrSalaryIsRequired      = errors.New("salary is required")
-	ErrIsActiveIsRequired    = errors.New("isActive is required")
-	ErrIsRemoteIsRequired    = errors.New("isRemote is required")
 	ErrLinkIsRequired        = errors.New("link is required")
 )
 
@@ -26,8 +24,8 @@ type Job struct {
 	Location    string    `json:"location"`
 	Link        string    `json:"link"`
 	Salary      int64     `json:"salary"`
-	IsActive    *bool     `json:"isActive"`
-	IsRemote    *bool     `json:"isRemote"`
+	IsActive    bool      `json:"isActive"`
+	IsRemote    bool      `json:"isRemote"`
 	Uuid        uuid.UUID `json:"uuid"`
 }
 
@@ -38,8 +36,8 @@ func NewJob(dto dto.JobDTO) (*Job, error) {
 		Company:     dto.Company,
 		Location:    dto.Location,
 		Salary:      dto.Salary,
-		IsActive:    &dto.IsActive,
-		IsRemote:    &dto.IsRemote,
+		IsActive:    dto.IsActive,
+		IsRemote:    dto.IsRemote,
 		Link:        dto.Link,
 		Uuid:        uuid.New(),
 	}
@@ -71,14 +69,6 @@ func (job *Job) Validate() error {
 
 	if job.Salary <= 0 {
 		return ErrSalaryIsRequired
-	}
-
-	if job.IsActive == nil {
-		return ErrIsActiveIsRequired
-	}
-
-	if job.IsRemote == nil {
-		return ErrIsRemoteIsRequired
 	}
 
 	if job.Link == "" {

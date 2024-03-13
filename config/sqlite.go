@@ -1,7 +1,7 @@
 package configs
 
 import (
-	"github.com/jfromjefferson/gojobs-api/schemas"
+	"github.com/jfromjefferson/gojobs-api/schemas/job"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -12,7 +12,7 @@ func InitDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(schemas.Job{})
+	err = db.AutoMigrate(job.Job{})
 	if err != nil {
 		return nil, err
 	}

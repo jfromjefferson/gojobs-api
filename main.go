@@ -2,6 +2,7 @@ package main
 
 import (
 	configs "github.com/jfromjefferson/gojobs-api/config"
+	"github.com/jfromjefferson/gojobs-api/handler"
 	"github.com/jfromjefferson/gojobs-api/router"
 )
 
@@ -20,7 +21,7 @@ func main() {
 		logger.ErrF("Database init error: %v", err)
 	}
 
-	print(db)
+	handler.InitHandler(db)
 
 	// Init routes
 	router.Init(":8000")
