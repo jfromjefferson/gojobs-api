@@ -2,6 +2,7 @@ package main
 
 import (
 	configs "github.com/jfromjefferson/gojobs-api/config"
+	_ "github.com/jfromjefferson/gojobs-api/docs"
 	"github.com/jfromjefferson/gojobs-api/handler"
 	"github.com/jfromjefferson/gojobs-api/router"
 )

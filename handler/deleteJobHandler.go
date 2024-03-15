@@ -8,6 +8,17 @@ import (
 	"net/http"
 )
 
+// DeleteJobHandler Delete job godoc
+// @Summary Delete job
+// @Description Delete job...
+// @Tags jobs
+// @Accept json
+// @Produce json
+// @Param uuid query string true "uuid" Format(uuid)
+// @Success 200
+// @Failure 404 {object} Error
+// @Failure 500 {object} Error
+// @Router /jobs/job [delete]
 func DeleteJobHandler(context *gin.Context) {
 	uuidParam := context.Query("uuid")
 	if uuidParam == "" {

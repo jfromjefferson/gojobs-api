@@ -3,6 +3,8 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jfromjefferson/gojobs-api/handler"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func initializeRoutes(router *gin.Engine) {
@@ -17,5 +19,7 @@ func initializeRoutes(router *gin.Engine) {
 		v1.PUT("/jobs/job", handler.UpdateJobHandler)
 
 		v1.DELETE("/jobs/job", handler.DeleteJobHandler)
+
+		v1.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 }

@@ -8,6 +8,18 @@ import (
 	"strconv"
 )
 
+// ListJobHandler List job godoc
+// @Summary List job
+// @Description List job...
+// @Tags jobs
+// @Accept json
+// @Produce json
+// @Param page query string false "page number"
+// @Param limit query string false "limit"
+// @Success 200 {array} job.Job
+// @Failure 404 {object} Error
+// @Failure 500 {object} Error
+// @Router /jobs [get]
 func ListJobHandler(context *gin.Context) {
 	page := context.Query("page")
 	limit := context.Query("limit")

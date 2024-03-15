@@ -8,6 +8,17 @@ import (
 	"net/http"
 )
 
+// GetOneJobHandler Get job godoc
+// @Summary Get job
+// @Description Get job...
+// @Tags jobs
+// @Accept json
+// @Produce json
+// @Param uuid query string true "uuid" Format(uuid)
+// @Success 200 {object} job.Job
+// @Failure 404 {object} Error
+// @Failure 500 {object} Error
+// @Router /jobs/job [get]
 func GetOneJobHandler(context *gin.Context) {
 	uuidParam := context.Query("uuid")
 

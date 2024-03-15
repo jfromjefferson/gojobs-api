@@ -6,10 +6,10 @@ import (
 )
 
 type JobDTO struct {
-	ID          uint      `json:"id"`
-	CreatedAt   time.Time `json:"createdAt"`
-	UpdatedAt   time.Time `json:"UpdatedAt"`
-	DeletedAt   time.Time `json:"deletedAt,omitempty"`
+	ID          uint      `json:"id" swaggerignore:"true"`
+	CreatedAt   time.Time `json:"createdAt" swaggerignore:"true"`
+	UpdatedAt   time.Time `json:"updatedAt" swaggerignore:"true"`
+	DeletedAt   time.Time `json:"deletedAt,omitempty" swaggerignore:"true"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	Company     string    `json:"company"`
@@ -18,5 +18,5 @@ type JobDTO struct {
 	IsActive    bool      `json:"isActive"`
 	IsRemote    bool      `json:"isRemote"`
 	Link        string    `json:"link"`
-	Uuid        uuid.UUID `json:"uuid"`
+	Uuid        uuid.UUID `json:"uuid" swaggerignore:"true"`
 }

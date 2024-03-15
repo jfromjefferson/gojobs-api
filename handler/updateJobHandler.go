@@ -10,6 +10,18 @@ import (
 	"net/http"
 )
 
+// UpdateJobHandler Update job godoc
+// @Summary Update job
+// @Description Update job...
+// @Tags jobs
+// @Accept json
+// @Produce json
+// @Param uuid query string true "uuid" Format(uuid)
+// @Param request body dto.JobDTO true "job request"
+// @Success 200
+// @Failure 404 {object} Error
+// @Failure 500 {object} Error
+// @Router /jobs/job [put]
 func UpdateJobHandler(context *gin.Context) {
 	uuidParam := context.Query("uuid")
 	if uuidParam == "" {

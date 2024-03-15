@@ -1,0 +1,213 @@
+definitions:
+  dto.JobDTO:
+    properties:
+      company:
+        type: string
+      description:
+        type: string
+      isActive:
+        type: boolean
+      isRemote:
+        type: boolean
+      link:
+        type: string
+      location:
+        type: string
+      salary:
+        type: integer
+      title:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  handler.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  job.Job:
+    properties:
+      company:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      description:
+        type: string
+      id:
+        type: integer
+      isActive:
+        type: boolean
+      isRemote:
+        type: boolean
+      link:
+        type: string
+      location:
+        type: string
+      salary:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+      uuid:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /jobs:
+    get:
+      consumes:
+      - application/json
+      description: List job...
+      parameters:
+      - description: page number
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/job.Job'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: List job
+      tags:
+      - jobs
+    post:
+      consumes:
+      - application/json
+      description: Create job...
+      parameters:
+      - description: job request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.JobDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: Create job
+      tags:
+      - jobs
+  /jobs/job:
+    delete:
+      consumes:
+      - application/json
+      description: Delete job...
+      parameters:
+      - description: uuid
+        format: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: Delete job
+      tags:
+      - jobs
+    get:
+      consumes:
+      - application/json
+      description: Get job...
+      parameters:
+      - description: uuid
+        format: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/job.Job'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: Get job
+      tags:
+      - jobs
+    put:
+      consumes:
+      - application/json
+      description: Update job...
+      parameters:
+      - description: uuid
+        format: uuid
+        in: query
+        name: uuid
+        required: true
+        type: string
+      - description: job request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.JobDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: Update job
+      tags:
+      - jobs
+swagger: "2.0"
