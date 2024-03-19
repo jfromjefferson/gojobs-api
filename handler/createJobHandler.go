@@ -19,12 +19,12 @@ type Error struct {
 // @Tags jobs
 // @Accept json
 // @Produce json
-// @Param request body dto.JobDTO true "job request"
+// @Param request body dto.JobDTOInput true "job request"
 // @Success 201
 // @Failure 500 {object} Error
 // @Router /jobs [post]
 func CreateJobHandler(context *gin.Context) {
-	var jobDTO dto.JobDTO
+	var jobDTO dto.JobDTOInput
 	err := json.NewDecoder(context.Request.Body).Decode(&jobDTO)
 	if err != nil {
 		errMessage := fmt.Sprintf("Error creating job: %v", err)

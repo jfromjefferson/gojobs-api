@@ -20,7 +20,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "page number",
+                        "description": "page",
                         "name": "page",
                         "in": "query"
                     },
@@ -28,6 +28,12 @@
                         "type": "string",
                         "description": "limit",
                         "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "title",
+                        "name": "title",
                         "in": "query"
                     }
                 ],
@@ -37,7 +43,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/job.Job"
+                                "$ref": "#/definitions/dto.JobDTOOutput"
                             }
                         }
                     },
@@ -74,7 +80,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.JobDTO"
+                            "$ref": "#/definitions/dto.JobDTOInput"
                         }
                     }
                 ],
@@ -118,7 +124,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/job.Job"
+                            "$ref": "#/definitions/dto.JobDTOOutput"
                         }
                     },
                     "404": {
@@ -162,7 +168,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.JobDTO"
+                            "$ref": "#/definitions/dto.JobDTOInput"
                         }
                     }
                 ],
@@ -227,7 +233,7 @@
         }
     },
     "definitions": {
-        "dto.JobDTO": {
+        "dto.JobDTOInput": {
             "type": "object",
             "properties": {
                 "company": {
@@ -256,27 +262,7 @@
                 }
             }
         },
-        "gorm.DeletedAt": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string"
-                },
-                "valid": {
-                    "description": "Valid is true if Time is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "handler.Error": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "job.Job": {
+        "dto.JobDTOOutput": {
             "type": "object",
             "properties": {
                 "company": {
@@ -286,7 +272,7 @@
                     "type": "string"
                 },
                 "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string"
@@ -316,6 +302,14 @@
                     "type": "string"
                 },
                 "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "handler.Error": {
+            "type": "object",
+            "properties": {
+                "message": {
                     "type": "string"
                 }
             }

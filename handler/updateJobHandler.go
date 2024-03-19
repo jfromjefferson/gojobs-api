@@ -17,7 +17,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param uuid query string true "uuid" Format(uuid)
-// @Param request body dto.JobDTO true "job request"
+// @Param request body dto.JobDTOInput true "job request"
 // @Success 200
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
@@ -52,7 +52,7 @@ func UpdateJobHandler(context *gin.Context) {
 		return
 	}
 
-	var jobDTO dto.JobDTO
+	var jobDTO dto.JobDTOOutput
 	err = json.NewDecoder(context.Request.Body).Decode(&jobDTO)
 	if err != nil {
 		errMessage := fmt.Sprintf("Error : %v", err)

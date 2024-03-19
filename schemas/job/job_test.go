@@ -7,7 +7,7 @@ import (
 )
 
 func TestNewJob(t *testing.T) {
-	jobDTO := dto.JobDTO{
+	jobDTO := dto.JobDTOInput{
 		Title:       "Full-stack Developer",
 		Description: "Job description",
 		Company:     "Meta Platforms",
@@ -25,7 +25,7 @@ func TestNewJob(t *testing.T) {
 	assert.NotEmpty(t, job.Uuid)
 	assert.True(t, job.Validate() == nil)
 
-	jobDTO2 := dto.JobDTO{
+	jobDTO2 := dto.JobDTOInput{
 		Description: "Job description",
 		Company:     "Meta Platforms",
 		Location:    "Palo Alto - California",

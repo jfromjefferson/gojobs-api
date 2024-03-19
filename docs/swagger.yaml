@@ -1,5 +1,5 @@
 definitions:
-  dto.JobDTO:
+  dto.JobDTOInput:
     properties:
       company:
         type: string
@@ -18,27 +18,14 @@ definitions:
       title:
         type: string
     type: object
-  gorm.DeletedAt:
-    properties:
-      time:
-        type: string
-      valid:
-        description: Valid is true if Time is not NULL
-        type: boolean
-    type: object
-  handler.Error:
-    properties:
-      message:
-        type: string
-    type: object
-  job.Job:
+  dto.JobDTOOutput:
     properties:
       company:
         type: string
       createdAt:
         type: string
       deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
+        type: string
       description:
         type: string
       id:
@@ -60,6 +47,11 @@ definitions:
       uuid:
         type: string
     type: object
+  handler.Error:
+    properties:
+      message:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -69,13 +61,17 @@ paths:
       - application/json
       description: List job...
       parameters:
-      - description: page number
+      - description: page
         in: query
         name: page
         type: string
       - description: limit
         in: query
         name: limit
+        type: string
+      - description: title
+        in: query
+        name: title
         type: string
       produces:
       - application/json
@@ -84,7 +80,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/job.Job'
+              $ref: '#/definitions/dto.JobDTOOutput'
             type: array
         "404":
           description: Not Found
@@ -107,7 +103,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.JobDTO'
+          $ref: '#/definitions/dto.JobDTOInput'
       produces:
       - application/json
       responses:
@@ -165,7 +161,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/job.Job'
+            $ref: '#/definitions/dto.JobDTOOutput'
         "404":
           description: Not Found
           schema:
@@ -193,7 +189,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.JobDTO'
+          $ref: '#/definitions/dto.JobDTOInput'
       produces:
       - application/json
       responses:

@@ -31,7 +31,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "page number",
+                        "description": "page",
                         "name": "page",
                         "in": "query"
                     },
@@ -39,6 +39,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "limit",
                         "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "title",
+                        "name": "title",
                         "in": "query"
                     }
                 ],
@@ -48,7 +54,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/job.Job"
+                                "$ref": "#/definitions/dto.JobDTOOutput"
                             }
                         }
                     },
@@ -85,7 +91,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.JobDTO"
+                            "$ref": "#/definitions/dto.JobDTOInput"
                         }
                     }
                 ],
@@ -129,7 +135,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/job.Job"
+                            "$ref": "#/definitions/dto.JobDTOOutput"
                         }
                     },
                     "404": {
@@ -173,7 +179,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.JobDTO"
+                            "$ref": "#/definitions/dto.JobDTOInput"
                         }
                     }
                 ],
@@ -238,7 +244,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dto.JobDTO": {
+        "dto.JobDTOInput": {
             "type": "object",
             "properties": {
                 "company": {
@@ -267,27 +273,7 @@ const docTemplate = `{
                 }
             }
         },
-        "gorm.DeletedAt": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string"
-                },
-                "valid": {
-                    "description": "Valid is true if Time is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "handler.Error": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "job.Job": {
+        "dto.JobDTOOutput": {
             "type": "object",
             "properties": {
                 "company": {
@@ -297,7 +283,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string"
@@ -327,6 +313,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "handler.Error": {
+            "type": "object",
+            "properties": {
+                "message": {
                     "type": "string"
                 }
             }

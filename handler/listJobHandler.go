@@ -14,9 +14,10 @@ import (
 // @Tags jobs
 // @Accept json
 // @Produce json
-// @Param page query string false "page number"
+// @Param page query string false "page"
 // @Param limit query string false "limit"
-// @Success 200 {array} job.Job
+// @Param title query string false "title"
+// @Success 200 {array} dto.JobDTOOutput
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Router /jobs [get]
@@ -24,13 +25,14 @@ func ListJobHandler(context *gin.Context) {
 	page := context.Query("page")
 	limit := context.Query("limit")
 	sort := context.Query("sort")
+	title := context.Query("title")
 
 	if page == "" {
 		page = "1"
 	}
 
 	if limit == "" {
-		limit = "0"
+		limit = "10"
 	}
 
 	pageInt, err := strconv.Atoi(page)
@@ -53,7 +55,7 @@ func ListJobHandler(context *gin.Context) {
 
 	jobDB := job.NewJobDB(db)
 
-	jobs, err := jobDB.FindAll(sort, pageInt, limitInt)
+	jobs, err := jobDB.FindAll(title, sort, pageInt, limitInt)
 	if err != nil {
 		errMessage := fmt.Sprintf("Error getting job list: %v", err)
 		context.JSON(http.StatusBadRequest, gin.H{"error": errMessage})

@@ -25,7 +25,7 @@ func (db *DB) First(uuid uuid.UUID) (*Job, error) {
 	return &job, err
 }
 
-func (db *DB) FindAll(sort string, page, limit int) ([]Job, error) {
+func (db *DB) FindAll(title, sort string, page, limit int) ([]Job, error) {
 	var jobs []Job
 	var err error
 
@@ -34,9 +34,9 @@ func (db *DB) FindAll(sort string, page, limit int) ([]Job, error) {
 	}
 
 	if page != 0 && limit != 0 {
-		err = db.DB.Limit(limit).Offset((page - 1) * limit).Order("created_at " + sort).Find(&jobs).Error
+		err = db.DB.Where("title LIKE ?", "%"+title+"%").Limit(limit).Offset((page - 1) * limit).Order("created_at " + sort).Find(&jobs).Error
 	} else {
-		err = db.DB.Order("created_at " + sort).Find(&jobs).Error
+		err = db.DB.Where("title LIKE ?", "%"+title+"%").Order("created_at " + sort).Find(&jobs).Error
 	}
 
 	return jobs, err

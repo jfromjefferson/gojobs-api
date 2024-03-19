@@ -18,7 +18,7 @@ func TestDB_First(t *testing.T) {
 	err = db.AutoMigrate(Job{})
 	assert.Nil(t, err)
 
-	jobDTO := dto.JobDTO{
+	jobDTO := dto.JobDTOInput{
 		Title:       "Full-stack Developer",
 		Description: "Job description",
 		Company:     "Meta Platforms",
@@ -61,7 +61,7 @@ func TestDB_FindAll(t *testing.T) {
 	assert.NotNil(t, jobDB)
 
 	for i := 1; i <= 20; i++ {
-		jobDTO := dto.JobDTO{
+		jobDTO := dto.JobDTOInput{
 			Title:       fmt.Sprintf("Title %d", i),
 			Description: "Job description",
 			Company:     "Meta Platforms",
@@ -80,12 +80,12 @@ func TestDB_FindAll(t *testing.T) {
 		assert.Nil(t, err)
 	}
 
-	jobs, err := jobDB.FindAll("asc", 1, 10)
+	jobs, err := jobDB.FindAll("Title", "asc", 1, 10)
 	assert.Nil(t, err)
 	assert.NotNil(t, jobs)
 	assert.Len(t, jobs, 10)
 
-	jobs, err = jobDB.FindAll("asc", 150, 10)
+	jobs, err = jobDB.FindAll("123", "asc", 1, 10)
 	assert.NotNil(t, jobs)
 	assert.Nil(t, err)
 	assert.Len(t, jobs, 0)
@@ -100,7 +100,7 @@ func TestDB_Create(t *testing.T) {
 	err = db.AutoMigrate(Job{})
 	assert.Nil(t, err)
 
-	jobDTO := dto.JobDTO{
+	jobDTO := dto.JobDTOInput{
 		Title:       "Full-stack Developer",
 		Description: "Job description",
 		Company:     "Meta Platforms",
@@ -138,7 +138,7 @@ func TestDB_Update(t *testing.T) {
 	jobDB := NewJobDB(db)
 	assert.NotNil(t, jobDB)
 
-	jobDTO := dto.JobDTO{
+	jobDTO := dto.JobDTOInput{
 		Title:       "Full-stack Developer",
 		Description: "Job description",
 		Company:     "Meta Platforms",
@@ -180,7 +180,7 @@ func TestDB_Delete(t *testing.T) {
 	jobDB := NewJobDB(db)
 	assert.NotNil(t, jobDB)
 
-	jobDTO := dto.JobDTO{
+	jobDTO := dto.JobDTOInput{
 		Title:       "Full-stack Developer",
 		Description: "Job description",
 		Company:     "Meta Platforms",
@@ -204,7 +204,7 @@ func TestDB_Delete(t *testing.T) {
 
 	err = jobDB.Delete(filteredJob)
 	assert.Nil(t, err)
-	jobs, err := jobDB.FindAll("asc", 1, 10)
+	jobs, err := jobDB.FindAll("", "asc", 1, 10)
 	assert.NotNil(t, jobs)
 	assert.Nil(t, err)
 	assert.Len(t, jobs, 0)

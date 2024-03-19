@@ -15,7 +15,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param uuid query string true "uuid" Format(uuid)
-// @Success 200 {object} job.Job
+// @Success 200 {object} dto.JobDTOOutput
 // @Failure 404 {object} Error
 // @Failure 500 {object} Error
 // @Router /jobs/job [get]

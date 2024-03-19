@@ -29,7 +29,7 @@ type Job struct {
 	Uuid        uuid.UUID `json:"uuid"`
 }
 
-func NewJob(dto dto.JobDTO) (*Job, error) {
+func NewJob(dto dto.JobDTOInput) (*Job, error) {
 	job := Job{
 		Title:       dto.Title,
 		Description: dto.Description,
